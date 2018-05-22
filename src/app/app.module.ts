@@ -15,6 +15,8 @@ import { ApiProvider } from '../providers/api/api';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtMaker } from '../providers/Jwt-maker/jwt';
 import { DisturbanceInfo } from '../pages/disturbanceInfo/disturbanceInfo';
+import { Geolocation } from '@ionic-native/geolocation';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { DisturbanceInfo } from '../pages/disturbanceInfo/disturbanceInfo';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiProvider,
-    JwtMaker
+    Geolocation,
+    JwtMaker,
+    InAppBrowser
   ]
 })
 export class AppModule {}

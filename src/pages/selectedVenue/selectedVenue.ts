@@ -3,6 +3,7 @@ import { NavController, ViewController, PopoverController, NavParams } from 'ion
 import { TravelInfo } from '../travelInfo/travelInfo';
 import { ApiProvider } from '../../providers/api/api';
 import { SelectedRoute } from '../selectedRoute/selectedRoute';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 
 @Component({
@@ -14,18 +15,25 @@ export class SelectedVenue {
   public venueName;
   public venueId;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public provider: ApiProvider, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public provider: ApiProvider, public navParams: NavParams, public inAppBrowser: InAppBrowser) {
   this.venueName = navParams.get("venueName");
   this.venueId = navParams.get("venueId");
   this.ionLoadStations(this.venueId);
   }
 
- goToselectedRoute(routeName:string, siteId:string, tType ){
+  openInAppBrowser() {
+    
+    const browser = this.inAppBrowser.create('https://www.stockholmlive.com/evenemang/alla-evenemang', '_self')
+  }
+
+ goToselectedRoute(routeName:string, siteId:string, tType, icon){
     this.navCtrl.push(SelectedRoute, {
       routeName: routeName,
       siteId: siteId,
       venueId: this.venueId,
       transport_type: tType,
+      venueName: this.venueName,
+      icon: icon,
     });
   }
 
@@ -45,18 +53,6 @@ export class SelectedVenue {
       (error)=> {console.log("error: ", JSON.stringify(error));}
     )
   }
-testLoader(){
-  this.stations = [
-    {name: 'Ericsson Globe', id: 1},
-    {name: 'Hovet', id: 2},
-    {name: 'Annexet', id: 3},
-    {name: 'Tele2 Arena', id: 4},
-    {name: 'Friends Arena', id: 5},
-    {name: 'Stockholms Stadion', id: 6},
-    {name: 'Berns', id: 7},
-    {name: 'Cirkus', id: 8}
-  ];
-}
 }
 interface MyObj {
   name: string
