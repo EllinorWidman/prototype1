@@ -25,15 +25,19 @@ private venueView;
   this.venueAddress = navParams.get("venueAddress");
   this.venueView = navParams.get("venueView");
   this.ionLoadStations(this.venueId);
+    setInterval(() => {
+      this.ionLoadStations(this.venueId);
+    }, 10000);
+
   this.loadEvents();
 console.log("VenueUrl: ", this.venueView);
   }
 
   openBrowserPage(id) {
 
-    const eventUrl = this.eventUrl; // Byt ut till db_event/event_url
+    const eventUrl = this.eventUrl;
     const restaurantUrl = 'https://www.google.com/maps/search/' + this.venueName + '+Restaurants+Bars';
-    const overviewUrl = this.venueView; // Byt ut till db_venue_arenaview_url
+    const overviewUrl = this.venueView;
 
     const options: InAppBrowserOptions = {
       toolbar: 'yes',
@@ -51,7 +55,7 @@ console.log("VenueUrl: ", this.venueView);
     }
 
   }
- goToselectedRoute(routeName:string, siteId:string, tType, icon, sType, colorHex, colorString){
+ goToselectedRoute(routeName:string, siteId:string, tType, icon, sType, colorHex, colorString, crowd_indicator, time){
     this.navCtrl.push(SelectedRoute, {
       routeName: routeName,
       siteId: siteId,
@@ -62,7 +66,9 @@ console.log("VenueUrl: ", this.venueView);
       venueAddress: this.venueAddress,
       stationType: sType,
       color_hex: colorHex,
-      color: colorString
+      color: colorString,
+      crowdIndicator: crowd_indicator,
+      time: time,
     });
   }
 
